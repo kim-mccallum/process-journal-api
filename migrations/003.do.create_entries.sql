@@ -11,3 +11,5 @@ CREATE TABLE entries (
     variable TEXT NOT NULL, 
     value NUMERIC NOT NULL
 );
+
+CREATE INDEX date_index ON entries(date);

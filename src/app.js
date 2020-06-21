@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const { NODE_ENV, DB_URL } = require("./config");
 
-const journalSettingsRouter = require("./journal-settings/journal-settings-router");
+const goalsRouter = require("./goals/goals-router");
 const entriesRouter = require("./entries/entries-router");
 const authRouter = require("./auth/auth-router");
 
@@ -20,7 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Middleware for endpoints and authentication
-app.use("/api/journal-settings", journalSettingsRouter);
+app.use("/api/goals", goalsRouter);
 app.use("/api/entries", entriesRouter);
 app.use("/api/auth", authRouter);
 // app.use("/api/users", usersRouter);

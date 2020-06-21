@@ -5,6 +5,44 @@ const { requireAuth } = require("../middleware/jwt-auth");
 const authRouter = express.Router();
 const jsonBodyParser = express.json();
 
+authRouter.post("/signup", jsonBodyParser, (req, res, next) => {
+  const { password, username, email } = req.body;
+  console.log(req.body);
+
+  for (const field of ["email", "username", "password"])
+    if (!req.body[field])
+      return res.status(400).json({
+        error: `Missing '${field}' in request body`,
+      });
+
+  // TODO: check username doesn't start with spaces
+
+  const passwordError = AuthService.validatePassword(password);
+
+  if (passwordError) return res.status(400).json({ error: passwordError });
+
+  AuthService.hasUserWithUserName(req.app.get("db"), username)
+    .then((hasUserWithUserName) => {
+      if (hasUserWithUserName)
+        return res.status(400).json({ error: `Username already taken` });
+
+      return AuthService.hashPassword(password).then((hashedPassword) => {
+        const newUser = {
+          username,
+          password: hashedPassword,
+          email,
+        };
+
+        return AuthService.insertUser(req.app.get("db"), newUser).then(
+          (user) => {
+            res.status(201).json(AuthService.serializeUser(user));
+          }
+        );
+      });
+    })
+    .catch(next);
+});
+
 authRouter.post("/login", jsonBodyParser, (req, res, next) => {
   const { username, password } = req.body;
   const loginUser = { username, password };
@@ -41,15 +79,6 @@ authRouter.post("/login", jsonBodyParser, (req, res, next) => {
       });
     })
     .catch(next);
-});
-
-// What is this? I AM NOT USING THIS CURRENTLY
-authRouter.post("/refresh", requireAuth, (req, res) => {
-  const sub = req.user.username;
-  const payload = { user_id: req.user.id };
-  res.send({
-    authToken: AuthService.createJwt(sub, payload),
-  });
 });
 
 module.exports = authRouter;

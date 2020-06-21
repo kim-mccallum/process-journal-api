@@ -1,1 +1,3 @@
+DROP TYPE IF EXISTS datatype;
+
 DROP TABLE IF EXISTS entries;

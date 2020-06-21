@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS goals;
+
+DROP TABLE IF EXISTS process_variables;
+
+DROP TABLE IF EXISTS habits;

@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const { NODE_ENV, DB_URL } = require("./config");
 
 const goalsRouter = require("./goals/goals-router");
+const habitsRouter = require("./habits/habits-router");
+const processVariablesRouter = require("./process-variables/process-variables-router");
 const entriesRouter = require("./entries/entries-router");
 const authRouter = require("./auth/auth-router");
 
@@ -21,6 +23,8 @@ app.use(bodyParser.json());
 
 // Middleware for endpoints and authentication
 app.use("/api/goals", goalsRouter);
+app.use("/api/habits", habitsRouter);
+app.use("/api/process-variables", processVariablesRouter);
 app.use("/api/entries", entriesRouter);
 app.use("/api/auth", authRouter);
 // app.use("/api/users", usersRouter);

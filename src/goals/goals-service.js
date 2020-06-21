@@ -1,9 +1,9 @@
 const GoalsService = {
   // Not currently using this
-  getAllGoals(knex) {
+  getAllGoalsByUserId(knex) {
     return knex.select("*").from("goals");
   },
-  //   make sure that this returns ALL the goals
+  //   make sure that this returns ALL the goals - NOT BEING USED CURRENTLY
   getAllByUserId(knex, userId) {
     return knex.from("goals").select("*").where("user_id", userId);
   },

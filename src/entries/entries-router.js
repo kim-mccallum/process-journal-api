@@ -18,9 +18,10 @@ const serializeEntry = (entry) => ({
 
 entriesRouter
   .route("/")
-  // Maybe create an admin account setting with this priveledge'
+  // Make this queryable by date
   .get(requireAuth, (req, res, next) => {
-    EntriesService.getByUserId(req.app.get("db"), req.user.id)
+    console.log(req.query);
+    EntriesService.getByUserId(req.app.get("db"), req.user.id, req.query)
       .then((entries) => {
         res.json(entries);
       })

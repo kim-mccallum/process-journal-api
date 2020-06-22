@@ -18,3 +18,7 @@ CREATE TABLE habits (
     date TIMESTAMPTZ DEFAULT now() NOT NULL, 
     habit TEXT NOT NULL
 );
+
+CREATE INDEX user_goal_index ON goals(user_id);
+CREATE INDEX user_habit_index ON habits(user_id);
+CREATE INDEX user_variable_index ON process_variables(user_id);

@@ -4,3 +4,5 @@ CREATE TABLE users (
     password TEXT NOT NULL, 
     email TEXT NOT NULL UNIQUE
 );
+
+CREATE INDEX id_index ON users(id);

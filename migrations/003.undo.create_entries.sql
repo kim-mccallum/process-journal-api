@@ -1,3 +1,5 @@
 DROP TABLE IF EXISTS entries;
 
 DROP TYPE IF EXISTS datatype;
+
+DROP IF EXISTS INDEX date_index;

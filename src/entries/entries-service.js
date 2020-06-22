@@ -21,6 +21,7 @@ const EntriesService = {
     // if they exist, convert them to the right date format for a query - COME BACK TO THIS AFTER WORKING ON THE CLIENT
     if (start && end) {
       // just examples - check the format from MomentJS first!
+      console.log("REMEMBER THAT YOU HAVEN'T CHECKED THE FORMAT OF THESE YET!");
       start = new Date(parseInt(start)).toISOString();
       end = new Date(parseInt(end)).toISOString();
       return knex

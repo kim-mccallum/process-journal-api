@@ -1,1 +1,3 @@
 DROP TABLE IF EXISTS users;
+
+DROP INDEX IF EXISTS id_index;

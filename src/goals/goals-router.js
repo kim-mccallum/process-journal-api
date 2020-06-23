@@ -18,8 +18,7 @@ goalsRouter
   .route("/")
   // Maybe create an admin account setting with this priveledge'
   .get(requireAuth, (req, res, next) => {
-    GoalsService.getAllGoalsByUserId(req.app.get("db"), req.user.id)
-      // Make sure this returns just the most recent goal
+    GoalsService.getAllByUserId(req.app.get("db"), req.user.id)
       .then((goals) => {
         res.json(goals);
       })
@@ -47,8 +46,7 @@ goalsRouter
     //call create method
     GoalsService.createGoal(req.app.get("db"), newGoal)
       .then((goal) => {
-        //   Don't think I need this location
-        res.status(201).location(`/goals/${goal.user_id}`).json(goal);
+        res.status(201).json(goal);
       })
       .catch(next);
   });
@@ -62,7 +60,7 @@ goalsRouter
       // Make sure this returns just the most recent goal
       .then((goal) => {
         let recentGoal = goal.rows;
-        // console.log(recentGoal);
+        console.log(recentGoal);
         res.json(recentGoal);
       })
       .catch(next);

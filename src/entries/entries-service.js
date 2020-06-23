@@ -4,9 +4,6 @@ const EntriesService = {
     let { start, end } = query;
     // if they exist, convert them to the right date format for a query - COME BACK TO THIS AFTER WORKING ON THE CLIENT
     if (start && end) {
-      // just examples - check the format from MomentJS first!
-      start = new Date(parseInt(start)).toISOString();
-      end = new Date(parseInt(end)).toISOString();
       return knex
         .from("entries")
         .select("*")
@@ -21,9 +18,8 @@ const EntriesService = {
     // if they exist, convert them to the right date format for a query - COME BACK TO THIS AFTER WORKING ON THE CLIENT
     if (start && end) {
       // just examples - check the format from MomentJS first!
-      console.log("REMEMBER THAT YOU HAVEN'T CHECKED THE FORMAT OF THESE YET!");
-      start = new Date(parseInt(start)).toISOString();
-      end = new Date(parseInt(end)).toISOString();
+      console.log("IF YOU SEND/RECEIVE UTC, YOU SHOULDN'T HAVE TO CONVERT");
+
       return knex
         .from("entries")
         .select("*")
@@ -33,6 +29,7 @@ const EntriesService = {
     }
     return knex.from("entries").select("*").where("user_id", userId);
   },
+  // add a method for checking if the date exists already prior to posting
   createEntry(knex, newEntry) {
     return knex
       .insert(newEntry)

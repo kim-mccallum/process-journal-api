@@ -10,7 +10,7 @@ const HabitsService = {
   //   add logic so that this returns only the most recent habit
   getCurrentHabitByUserId(knex, userId) {
     return knex.raw(
-      "select * from habits habit1 where habit1.user_id = 1 and habit1.date = (select max(habit2.date) from habits habit2 where habit2.user_id = habit1.user_id);"
+      `select * from habits habit1 where habit1.user_id = ${userId} and habit1.date = (select max(habit2.date) from habits habit2 where habit2.user_id = habit1.user_id);`
     );
   },
   createHabit(knex, newHabit) {

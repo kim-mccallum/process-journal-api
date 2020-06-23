@@ -22,9 +22,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Middleware for endpoints and authentication
-app.use("/api/goals", goalsRouter);
-app.use("/api/habits", habitsRouter);
-app.use("/api/process-variables", processVariablesRouter);
+app.use("/api/goal", goalsRouter);
+app.use("/api/habit", habitsRouter);
+app.use("/api/process_variable", processVariablesRouter);
 app.use("/api/entries", entriesRouter);
 app.use("/api/auth", authRouter);
 // app.use("/api/users", usersRouter);

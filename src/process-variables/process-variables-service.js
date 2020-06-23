@@ -10,7 +10,7 @@ const ProcessVariablesService = {
   //   add logic so that this returns only the most recent goal
   getCurrentByUserId(knex, userId) {
     return knex.raw(
-      "select * from process_variables pv1 where pv1.user_id = 1 and pv1.date = (select max(pv2.date) from process_variables pv2 where pv2.user_id = pv1.user_id);"
+      `select * from process_variables pv1 where pv1.user_id = ${userId} and pv1.date = (select max(pv2.date) from process_variables pv2 where pv2.user_id = pv1.user_id);`
     );
   },
   createVariable(knex, newVariable) {

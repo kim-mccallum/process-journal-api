@@ -28,6 +28,11 @@ app.use("/api/process_variable", processVariablesRouter);
 app.use("/api/entries", entriesRouter);
 app.use("/api/auth", authRouter);
 
+// Basic endpoint for checking
+app.get("/", (req, res) => {
+  res.send("Hello, Process Journal App!");
+});
+
 // last thing is error handler
 app.use(function errorHandler(error, req, res, next) {
   let response;

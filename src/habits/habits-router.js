@@ -26,7 +26,7 @@ habitsRouter
       .catch(next);
   })
   .post([jsonParser, requireAuth], (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
     console.log("found user id: ", req.user.id);
     const { date, habit } = req.body;
 

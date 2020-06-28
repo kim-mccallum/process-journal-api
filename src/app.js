@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
-const { NODE_ENV, DB_URL } = require("./config");
+const { NODE_ENV } = require("./config");
 
 const goalsRouter = require("./goals/goals-router");
 const habitsRouter = require("./habits/habits-router");
@@ -27,7 +27,6 @@ app.use("/api/habit", habitsRouter);
 app.use("/api/process_variable", processVariablesRouter);
 app.use("/api/entries", entriesRouter);
 app.use("/api/auth", authRouter);
-// app.use("/api/users", usersRouter);
 
 // last thing is error handler
 app.use(function errorHandler(error, req, res, next) {

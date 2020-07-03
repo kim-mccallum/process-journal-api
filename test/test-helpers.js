@@ -28,7 +28,7 @@ function makeGoalsArray(users) {
       goal: "First goal",
     },
     {
-      id: 1,
+      id: 2,
       user_id: users[0].id,
       date: new Date("2030-01-22T16:28:32.615Z"),
       goal: "Current goal",
@@ -51,7 +51,7 @@ function makeHabitsArray(users) {
       habit: "First habit",
     },
     {
-      id: 1,
+      id: 2,
       user_id: users[0].id,
       date: new Date("2030-01-22T16:28:32.615Z"),
       habit: "Current habit",
@@ -74,7 +74,7 @@ function makeProcessVariablesArray(users) {
       process_variable: "Current process variable",
     },
     {
-      id: 1,
+      id: 2,
       user_id: users[0].id,
       date: new Date("2030-01-22T16:28:32.615Z"),
       process_variable: "Current process variable",
@@ -100,7 +100,7 @@ function makeEntriesArray(users) {
       value: 1,
     },
     {
-      id: 1,
+      id: 2,
       user_id: users[0].id,
       date: new Date("2030-01-22T16:28:32.615Z"),
       type: "variable",

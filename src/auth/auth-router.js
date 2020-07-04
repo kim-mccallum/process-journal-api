@@ -24,7 +24,9 @@ authRouter.post("/signup", jsonBodyParser, (req, res, next) => {
   AuthService.hasUserWithUserName(req.app.get("db"), username)
     .then((hasUserWithUserName) => {
       if (hasUserWithUserName)
-        return res.status(400).json({ error: `Username already taken` });
+        return res
+          .status(400)
+          .json({ error: `Username or email already taken` });
 
       return AuthService.hashPassword(password).then((hashedPassword) => {
         const newUser = {

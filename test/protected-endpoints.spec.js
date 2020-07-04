@@ -25,7 +25,7 @@ describe("Protected endpoints", function () {
 
   after("disconnect from db", () => db.destroy());
 
-  // // USE DBEAVER TO CHECK AT FIRST
+  // // Delete db content
   before("cleanup", () => helpers.cleanTables(db));
 
   afterEach("cleanup", () => helpers.cleanTables(db));
@@ -40,22 +40,9 @@ describe("Protected endpoints", function () {
       testEntries
     )
   );
-  // // the seedDbTables function works?!?!
 
-  // SET UP FOR PROCESS-JOURNAL
+  // Set up all the endpoints testing
   const protectedEndpoints = [
-    // // test the auth endpoints elsewhere?
-    // {
-    //   name: "POST /api/auth/signup",
-    //   path: "/api/auth/signup",
-    //   method: supertest(app).get,
-    // },
-    // {
-    //   name: "POST /api/auth/login",
-    //   path: "/api/auth/login",
-    //   method: supertest(app).get,
-    // },
-    // GET: goals, process_variables, habits /current and entries
     {
       name: "GET /api/goal/current",
       path: "/api/goal/current",
@@ -98,20 +85,9 @@ describe("Protected endpoints", function () {
     },
   ];
 
-  //   START HERE WITH JUST ONE TO MAKE SURE THE DB IS GETTING SEEDED
-  // describe(protectedEndpoints[0].name, () => {
-  //   it(`responds 401 'Missing bearer token' when no bearer token`, () => {
-  //     return protectedEndpoints[0]
-  //       .method(protectedEndpoints[0].path)
-  //       .expect(401, { error: `Missing bearer token` });
-  //   });
-  // });
-  // ERASE ABOVE
-
   protectedEndpoints.forEach((endpoint) => {
-    // console.log(endpoint);
     describe(endpoint.name, () => {
-      it.only(`responds 401 'Missing bearer token' when no bearer token`, () => {
+      it(`responds 401 'Missing bearer token' when no bearer token`, () => {
         return endpoint
           .method(endpoint.path)
           .expect(401, { error: `Missing bearer token` });

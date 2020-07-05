@@ -78,7 +78,7 @@ function makeEntriesArray(users) {
       date: new Date("2029-01-22T16:28:32.615Z"),
       type: "variable",
       variable: "First entry",
-      value: 1,
+      value: "1",
     },
     {
       id: 2,
@@ -86,7 +86,7 @@ function makeEntriesArray(users) {
       date: new Date("2030-01-22T16:28:32.615Z"),
       type: "variable",
       variable: "Second entry",
-      value: 2,
+      value: "2",
     },
   ];
 }
@@ -204,6 +204,19 @@ function makeExpectedHabit(users, habit) {
   };
 }
 
+function makeExpectedEntry(users, entry) {
+  const journalUser = users.find((user) => user.id === entry.user_id);
+
+  return {
+    id: entry.id,
+    user_id: journalUser.id,
+    date: entry.date.toISOString(),
+    type: entry.type,
+    variable: entry.variable,
+    value: entry.value,
+  };
+}
+
 // ADD?
 function makeMaliciousGoal(user) {
   const maliciousGoal = {
@@ -277,6 +290,7 @@ module.exports = {
   makeExpectedGoal,
   makeExpectedProcessVariable,
   makeExpectedHabit,
+  makeExpectedEntry,
   //XSS demo
   makeMaliciousGoal,
   seedMaliciousGoal,

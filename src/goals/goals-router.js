@@ -32,7 +32,7 @@ goalsRouter
     // validate - all required fields included?
     if (!req.body["goal"]) {
       return res.status(400).send({
-        error: { message: `'goal' is required.` },
+        error: { message: `goal is required.` },
       });
     }
     // create new goal object

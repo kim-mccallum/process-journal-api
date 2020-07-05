@@ -119,7 +119,7 @@ describe("Auth Endpoints", function () {
         });
       });
 
-      it.only(`responds 400 'Username or email already taken' when username isn't unique`, () => {
+      it(`responds 400 'Username or email already taken' when username isn't unique`, () => {
         const duplicateUser = {
           email: "test email",
           username: testUser.username,

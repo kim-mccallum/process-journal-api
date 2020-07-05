@@ -33,12 +33,6 @@ function makeGoalsArray(users) {
       date: new Date("2030-01-22T16:28:32.615Z"),
       goal: "Current goal",
     },
-    // {
-    //   id: 2,
-    //   user_id: users[1].id,
-    //   date: new Date("2029-01-22T16:28:32.615Z"),
-    //   goal: "Natus consequuntur deserunt commodi.",
-    // },
   ];
 }
 
@@ -56,12 +50,6 @@ function makeHabitsArray(users) {
       date: new Date("2030-01-22T16:28:32.615Z"),
       habit: "Current habit",
     },
-    // {
-    //   id: 2,
-    //   user_id: users[1].id,
-    //   date: new Date("2029-01-22T16:28:32.615Z"),
-    //   habit: "Natus consequuntur deserunt commodi.",
-    // },
   ];
 }
 
@@ -79,16 +67,9 @@ function makeProcessVariablesArray(users) {
       date: new Date("2030-01-22T16:28:32.615Z"),
       process_variable: "Current process variable",
     },
-    // {
-    //   id: 2,
-    //   user_id: users[1].id,
-    //   date: new Date("2029-01-22T16:28:32.615Z"),
-    //   habit: "Natus consequuntur deserunt commodi.",
-    // },
   ];
 }
 
-//COME BACK AND MAKE HABIT AND PROCESS-VARIABLES ARRAY
 function makeEntriesArray(users) {
   return [
     {
@@ -107,14 +88,6 @@ function makeEntriesArray(users) {
       variable: "Second entry",
       value: 2,
     },
-    // {
-    //   id: 2,
-    //   user_id: users[1].id,
-    //   date: new Date("2029-01-22T16:28:32.615Z"),
-    //   type: "habit",
-    //   variable: "Natus consequuntur deserunt commodi.",
-    //   value: 10,
-    // },
   ];
 }
 
@@ -201,9 +174,33 @@ function makeExpectedGoal(users, goal) {
 
   return {
     id: goal.id,
-    user_id: journalUser,
+    user_id: journalUser.id,
     date: goal.date.toISOString(),
     goal: goal.goal,
+  };
+}
+
+function makeExpectedProcessVariable(users, process_variable) {
+  const journalUser = users.find(
+    (user) => user.id === process_variable.user_id
+  );
+
+  return {
+    id: process_variable.id,
+    user_id: journalUser.id,
+    date: process_variable.date.toISOString(),
+    process_variable: process_variable.process_variable,
+  };
+}
+
+function makeExpectedHabit(users, habit) {
+  const journalUser = users.find((user) => user.id === habit.user_id);
+
+  return {
+    id: habit.id,
+    user_id: journalUser.id,
+    date: habit.date.toISOString(),
+    habit: habit.habit,
   };
 }
 
@@ -215,15 +212,26 @@ function makeMaliciousGoal(user) {
     date: new Date(),
     goal: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
   };
+  console.log(maliciousGoal);
   const expectedGoal = {
     //CHANGE THIS
-    ...makeExpectedGoal([user], makeMaliciousGoal),
-    goal: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
+    // ...makeExpectedGoal([user], makeMaliciousGoal),
+    id: maliciousGoal.id,
+    user_id: maliciousGoal.id,
+    date: maliciousGoal.date,
+    goal: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
   };
   return {
     maliciousGoal,
     expectedGoal,
   };
+}
+
+function seedMaliciousGoal(db, user, goal) {
+  return db
+    .into("users")
+    .insert([user])
+    .then(() => db.into("goals").insert([goal]));
 }
 
 module.exports = {
@@ -239,7 +247,11 @@ module.exports = {
   seedDbTables,
   seedUsers,
   makeAuthHeader,
-
-  //   makeExpectedGoal,
-  // makeMaliciousGoal
+  //make expected stuff
+  makeExpectedGoal,
+  makeExpectedProcessVariable,
+  makeExpectedHabit,
+  //XSS demo
+  makeMaliciousGoal,
+  seedMaliciousGoal,
 };

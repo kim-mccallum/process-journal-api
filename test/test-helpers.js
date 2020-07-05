@@ -234,6 +234,32 @@ function seedMaliciousGoal(db, user, goal) {
     .then(() => db.into("goals").insert([goal]));
 }
 
+function makeMaliciousHabit(user) {
+  const maliciousHabit = {
+    id: 911,
+    user_id: user.id,
+    date: new Date(),
+    habit: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
+  };
+  const expectedHabit = {
+    id: maliciousHabit.id,
+    user_id: maliciousHabit.id,
+    date: maliciousHabit.date,
+    habit: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`,
+  };
+  return {
+    maliciousHabit,
+    expectedHabit,
+  };
+}
+
+function seedMaliciousHabit(db, user, habit) {
+  return db
+    .into("users")
+    .insert([user])
+    .then(() => db.into("habits").insert([habit]));
+}
+
 module.exports = {
   //raw data creation
   makeUsersArray,
@@ -254,4 +280,6 @@ module.exports = {
   //XSS demo
   makeMaliciousGoal,
   seedMaliciousGoal,
+  makeMaliciousHabit,
+  seedMaliciousHabit,
 };

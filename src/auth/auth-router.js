@@ -21,7 +21,7 @@ authRouter.post("/signup", jsonBodyParser, (req, res, next) => {
 
   if (passwordError) return res.status(400).json({ error: passwordError });
 
-  AuthService.hasUserWithUserName(req.app.get("db"), username)
+  AuthService.hasUserWithUserName(req.app.get("db"), username, email)
     .then((hasUserWithUserName) => {
       if (hasUserWithUserName)
         return res

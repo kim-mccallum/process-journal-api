@@ -26,11 +26,16 @@ const AuthService = {
   parseBasicToken(token) {
     return Buffer.from(token, "base64").toString().split(":");
   },
-  hasUserWithUserName(db, username) {
-    return db("users")
-      .where({ username })
-      .first()
-      .then((user) => !!user);
+  hasUserWithUserName(db, username, email) {
+    return (
+      db("users")
+        // gimme the users with this email
+        .where({ username })
+        // or with this email
+        .orWhere({ email })
+        .first()
+        .then((user) => !!user)
+    );
   },
   insertUser(db, newUser) {
     return db

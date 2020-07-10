@@ -12,6 +12,7 @@ function requireAuth(req, res, next) {
     bearerToken = authToken.slice(7, authToken.length);
   }
   try {
+    // HOW DO I GET THE EXPIRATION ERROR TO PASS TO THE CLIENT
     const payload = AuthService.verifyJwt(bearerToken);
 
     AuthService.getUserWithUserName(req.app.get("db"), payload.sub)

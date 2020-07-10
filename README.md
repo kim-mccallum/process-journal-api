@@ -1,17 +1,27 @@
-# Express Boilerplate!
+# [Process Journal](https://process-journal-client.vercel.app/) API
 
-This is a boilerplate project used for starting new projects!
+If you have not already, please read the [Process Journal Client readme](https://github.com/kim-mccallum/process-journal-client/blob/master/README.md) for information about this project.
 
-## Set up
+## About
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+This API services the Process Journal React client application and comprises an Express server coupled with a PostgreSQL database. The database stores user information from the process journal client. This server has authentication endpoints for creating an account, logging in and access user journal data such as user goals, process variables, habits and journal entries. Passwords are securely hashed and stored and authentication is handled using JWT.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+A typical request pattern looks like this:
+
+- A user visits the Process Journal client application, creates an account and makes a POST request to store their username, email and hashed password in the database.
+- A user logs in by submitting a POST request to the login endpoint. Their hashed password is compared to the database and if valid, a token is returned to the client.
+- As users interact with the app, they make repeated POST and GET requests to the protected endpoints: `api/goal`, `api/process_variable`, `api/habit`, `api/goal/current`, `api/process_variable/current`, `api/habit/current` and `api/entries` endpoints. Requests are validated, responses are sent accordingly and the user data is returned and rendered in the UI.
+
+## Technologies
+
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Knex.js](http://knexjs.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+
+#### Notes
+
+Process Journal is currently hosted on Heroku and as such, the API can take a few moments to 'wake up' when you first interact with it.
 
 ## Scripts
 
@@ -23,4 +33,4 @@ Run the tests `npm test`
 
 ## Deploying
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+When this project is ready to be updated and redeployed, simply run `npm run build` and then `npm run deploy` which will push to this remote's master branch.
